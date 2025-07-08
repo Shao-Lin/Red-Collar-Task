@@ -1,0 +1,27 @@
+.book-list {
+  margin-top: 107px;
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  column-gap: 50px;
+  row-gap: 30px;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ---------- ≤ 1024 px → две карточки ---------- */
+@media (max-width: 1024px) {
+  .book-list {
+    grid-template-columns: repeat(2, 250px);
+  }
+}
+
+/* ---------- ≤ 600 px → одна карточка ---------- */
+@media (max-width: 600px) {
+  .book-list {
+    grid-template-columns: repeat(1, 250px);
+    justify-content: center;
+    padding: 0 16px;
+    margin-top: 50px;
+  }
+}

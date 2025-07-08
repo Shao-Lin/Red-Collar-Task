@@ -1,0 +1,87 @@
+.main-header {
+  margin-top: 51px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 24px;
+}
+
+.main-header__left {
+  flex: 1 1 0;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.main-header__menu-btn {
+  width: 60px;
+  height: 60px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-header__menu-btn img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.main-header__center {
+  flex: 0 0 clamp(300px, 59vw, 850px);
+  display: flex;
+  justify-content: center;
+  height: 66px; /* высота = высоте инпута */
+}
+
+.main-header__right {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-header__favourites {
+  font-size: 32px;
+  color: #8c0505;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .main-header__favourites {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .main-header__left,
+  .main-header__center,
+  .main-header__right {
+    flex: none;
+    width: 100%;
+  }
+
+  /* КНОПКА МЕНЮ В ЦЕНТРЕ */
+  .main-header__left {
+    justify-content: center; /* было flex-start */
+  }
+
+  .main-header__center,
+  .main-header__right {
+    justify-content: center;
+  }
+
+  .main-header__favourites {
+    font-size: 24px;
+  }
+}
