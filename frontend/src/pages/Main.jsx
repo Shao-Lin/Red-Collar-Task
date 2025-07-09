@@ -1,45 +1,40 @@
-import MainHeader from "../components/mainHeader/MainHeader";
-import React from "react";
+import React, { useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import ListBookCard from "../components/listBookCard/ListBookCard";
+import MainHeader from "../components/mainHeader/MainHeader";
+import useGoogleBooks from "../hooks/useGoogleBooks";
+import useDebounce from "../hooks/useDebounce";
 
-const Main = () => {
-  const test = {
-    id: "0",
-    title: "Ночной дозор и камень",
-    author: "А. Стругацкий",
-    description:
-      "Не знаю, насколько смешной или забавной была книга на английском языке олько смешной или забавной б",
-  };
-  const test1 = {
-    id: "1",
-    title: "Ночной дозор и камень",
-    author: "А. Стругацкий",
-    description:
-      "Не знаю, насколько смешной или забавной была книга на английском языке олько смешной или забавной б",
-  };
-  const test2 = {
-    id: "2",
-    title: "Ночной дозор и камень",
-    author: "А. Стругацкий",
-    description:
-      "Не знаю, насколько смешной или забавной была книга на английском языке олько смешной или забавной б",
-  };
-  const test3 = {
-    id: "3",
-    title: "Ночной дозор и камень",
-    author: "А. Стругацкий",
-    description:
-      "Не знаю, насколько смешной или забавной была книга на английском языке олько смешной или забавной б",
-  };
+const MainPage = () => {
+  const [search, setSearch] = useState("Java");
+  const [filter, setFilter] = useState("");
 
-  const arrTest = [test, test1, test2, test3];
+  /* debounce — чтобы не бомбить API при каждом символе */
+  const debouncedSearch = useDebounce(search, 400);
+
+  const { books, loadMore, hasMore } = useGoogleBooks(debouncedSearch, filter);
+  console.log(books);
+
   return (
     <>
-      <MainHeader />
+      <MainHeader
+        initialSearch={search}
+        onSearchChange={setSearch}
+        onFilterChange={setFilter}
+      />
 
-      <ListBookCard books={arrTest} />
+      <InfiniteScroll
+        dataLength={books.length}
+        next={loadMore}
+        hasMore={hasMore}
+        loader={<p style={{ textAlign: "center" }}>Загрузка…</p>}
+        style={{ overflow: "visible" }}
+      >
+        <ListBookCard books={books} />
+      </InfiniteScroll>
     </>
   );
 };
-export default Main;
+
+export default MainPage;

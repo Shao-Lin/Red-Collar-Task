@@ -36,7 +36,7 @@
   flex: 0 0 clamp(300px, 59vw, 850px);
   display: flex;
   justify-content: center;
-  height: 66px; /* высота = высоте инпута */
+  height: 66px;
 }
 
 .main-header__right {
@@ -71,9 +71,8 @@
     width: 100%;
   }
 
-  /* КНОПКА МЕНЮ В ЦЕНТРЕ */
   .main-header__left {
-    justify-content: center; /* было flex-start */
+    justify-content: center;
   }
 
   .main-header__center,

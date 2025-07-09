@@ -2,55 +2,58 @@ import React from "react";
 import { useField } from "formik";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-const SelectInput = ({ name, label }) => {
+const OPTIONS = [
+  { v: "", label: "—" },
+  { v: "ebooks", label: "ebooks" },
+  { v: "free-ebooks", label: "free-ebooks" },
+  { v: "full", label: "full" },
+  { v: "paid-ebooks", label: "paid-ebooks" },
+  { v: "partial", label: "partial" },
+];
+
+const SelectInput = ({ name = "filter", label = "", onChange }) => {
   const [field, meta, helpers] = useField(name);
   const isError = Boolean(meta.touched && meta.error);
 
+  const handle = (e) => {
+    helpers.setValue(e.target.value);
+    onChange?.(e.target.value);
+  };
+
   return (
-    <FormControl
-      fullWidth
-      error={isError}
-      sx={{
-        width: "180px",
-        height: "50px",
-        "& .MuiOutlinedInput-root": {
-          borderRadius: "20px",
-          height: "50px",
-          fontSize: "16px",
-          color: "#3E2F1C",
-          "& fieldset": {
-            borderColor: "#C16E4F",
-            borderWidth: "2px",
-          },
-          "&:hover fieldset": {
-            borderColor: "#a8563b",
-          },
-          "&.Mui-focused fieldset": {
-            borderColor: "#C16E4F",
-            boxShadow: "0 0 0 3px rgba(193, 110, 79, 0.2)",
-          },
-        },
-      }}
-    >
+    <FormControl fullWidth error={isError} sx={sxSelect}>
       <InputLabel>{label}</InputLabel>
       <Select
         {...field}
         label={label}
-        displayEmpty
         value={field.value || ""}
-        onChange={(e) => helpers.setValue(e.target.value)}
+        onChange={handle}
       >
-        <MenuItem value="None">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value="ebooks">ebooks</MenuItem>
-        <MenuItem value="free-ebooks">free-ebooks</MenuItem>
-        <MenuItem value="full">full</MenuItem>
-        <MenuItem value="paid-ebooks">paid-ebooks</MenuItem>
-        <MenuItem value="partial">partial</MenuItem>
+        {OPTIONS.map((o) => (
+          <MenuItem key={o.v} value={o.v}>
+            {o.label}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
+};
+
+const sxSelect = {
+  width: "180px",
+  height: "50px",
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "20px",
+    height: "50px",
+    fontSize: "20px",
+    color: "#3E2F1C",
+    "& fieldset": { borderColor: "#C16E4F", borderWidth: "2px" },
+    "&:hover fieldset": { borderColor: "#a8563b" },
+    "&.Mui-focused fieldset": {
+      borderColor: "#C16E4F",
+      boxShadow: "0 0 0 3px rgba(193,110,79,.2)",
+    },
+  },
 };
 
 export default SelectInput;

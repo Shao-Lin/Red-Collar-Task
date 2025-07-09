@@ -7,10 +7,12 @@ const ListBookCard = ({ books = [] }) => (
   <section className="book-list">
     {books.map((book) => (
       <BookCard
-        key={book.id || book.title}
+        key={book.id}
+        id={book.id}
         title={book.title}
         author={book.author}
         description={book.description}
+        cover={book.cover}
       />
     ))}
   </section>
@@ -19,13 +21,11 @@ const ListBookCard = ({ books = [] }) => (
 ListBookCard.propTypes = {
   books: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       author: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       imageSrc: PropTypes.string.isRequired,
-      isFavourite: PropTypes.bool,
-      onFavouriteToggle: PropTypes.func,
     })
   ),
 };

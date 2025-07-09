@@ -2,18 +2,20 @@ import React from "react";
 import HeartIcon from "../../assets/NoFavorite.png";
 import "./bookCard.css";
 import PropTypes from "prop-types";
-import bookCover from "../../assets/fakeImage2.webp";
+import bookCover from "../../assets/NotCover.webp";
 
 const BookCard = ({
-  title = "Ночной дозор и камень",
-  author = "А. Стругацкий",
-  description = "Не знаю, насколько смешной или забавной была книга на английском языке олько смешной или забавной б",
-  isFavourite = false,
-  onFavouriteToggle = () => {},
+  id,
+  title,
+  author,
+  description,
+  cover,
+  isFavorite,
+  onFavoriteToggle = () => {},
 }) => {
   return (
     <article className="book-card">
-      <img className="book-card__image" src={bookCover} alt={title} />
+      <img className="book-card__image" src={cover} alt={title} />
 
       <div className="book-card__title-row">
         <h3 className="book-card__title">{title}</h3>
@@ -21,13 +23,13 @@ const BookCard = ({
         <button
           className="book-card__heart-btn"
           aria-label="Добавить в избранное"
-          onClick={onFavouriteToggle}
+          onClick={onFavoriteToggle}
         >
           <img
             className="book-card__heart-icon"
             src={HeartIcon}
             alt="heart"
-            style={{ opacity: isFavourite ? 1 : 0.8 }}
+            style={{ opacity: isFavorite ? 1 : 0.8 }}
           />
         </button>
       </div>
@@ -43,8 +45,8 @@ BookCard.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  isFavourite: PropTypes.bool,
-  onFavouriteToggle: PropTypes.func,
+  isFavorite: PropTypes.bool,
+  onFavoriteToggle: PropTypes.func,
 };
 
 export default BookCard;

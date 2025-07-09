@@ -1,10 +1,10 @@
 import React from "react";
-import { Formik, Form } from "formik";
+import { Form } from "formik";
 import SelectInput from "../UI/SelectInput";
 import "./sideBar.css";
 import CloseIcon from "../../assets/Close_round.svg";
 
-const SideBar = ({ isOpen, onClose }) => (
+const SideBar = ({ isOpen, onClose, setFilter }) => (
   <aside className={`side-bar ${isOpen ? "side-bar--open" : ""}`}>
     <button
       className="side-bar__close-btn"
@@ -15,13 +15,13 @@ const SideBar = ({ isOpen, onClose }) => (
     </button>
     <h2 className="side-bar__title">Filter</h2>
 
-    <Formik initialValues={{ filter: "" }} onSubmit={() => {}}>
-      {() => (
-        <Form className="side-bar__select">
-          <SelectInput name="filter" label="" />
-        </Form>
-      )}
-    </Formik>
+    <Form className="side-bar__select">
+      <SelectInput
+        name="filter"
+        label=""
+        onChange={(val) => setFilter?.(val)} /* проброс наверх */
+      />
+    </Form>
   </aside>
 );
 
