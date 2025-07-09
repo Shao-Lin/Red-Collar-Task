@@ -9,6 +9,7 @@ import SearchInput from "../UI/SearchInput";
 import SideBar from "../sideBar/SideBar";
 
 import "./mainHeader.css";
+import { Link } from "react-router-dom";
 
 const MainHeader = ({ onSearchChange, onFilterChange, initialSearch }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +56,9 @@ const MainHeader = ({ onSearchChange, onFilterChange, initialSearch }) => {
 
               {/* «Избранное» */}
               <div className="main-header__right">
-                <span className="main-header__favourites">Избранное</span>
+                <Link to="/favorites" className="main-header__favourites">
+                  Избранное
+                </Link>
               </div>
             </header>
 
