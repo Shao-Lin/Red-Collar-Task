@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { fetchBooks } from "../api/bookApi";
+import { notifyApiError, notifyNotFoundError } from "../utils/notifyStorage";
 
 const PAGE_SIZE = 18;
 
@@ -12,7 +13,7 @@ export default function useGoogleBooks(query, filter) {
   /* ----------------- ПЕРВАЯ ЗАГРУЗКА ----------------- */
   useEffect(() => {
     const firstLoad = async () => {
-      if (!query) return;               // защита от пустых строк
+      if (!query) return;
       setIsLoading(true);
       try {
         const { books: chunk, total: all } = await fetchBooks(
@@ -23,19 +24,29 @@ export default function useGoogleBooks(query, filter) {
         );
         setBooks(chunk);
         setTotal(all);
-        setPage(1);                     // следующее page = 1
-      } finally {
+        setPage(1);
+        if (chunk.length === 0) {
+          console.log(books);
+          notifyNotFoundError();
+
+        }
+
+      } catch (err) {
+        notifyApiError()
+        throw err
+      }
+      finally {
         setIsLoading(false);
       }
     };
-
     firstLoad();
+
   }, [query, filter]);
 
   /* ----------------- ЗАГРУЗКА "ЕЩЁ" ----------------- */
   const loadMore = useCallback(async () => {
     if (isLoading) return;
-    if (books.length >= total) return;  // уже всё подгружено
+    if (books.length >= total) return;
 
     setIsLoading(true);
     try {
@@ -48,12 +59,14 @@ export default function useGoogleBooks(query, filter) {
       );
       setBooks((prev) => [...prev, ...chunk]);
       setPage((p) => p + 1);
+    } catch (err) {
+      notifyApiError()
+      throw err
     } finally {
       setIsLoading(false);
     }
   }, [query, filter, page, isLoading, books.length, total]);
 
-  /* если total ещё не знаем (0), считаем, что данные есть */
   const hasMore = total === 0 ? true : books.length < total;
 
   return { books, loadMore, hasMore, isLoading };

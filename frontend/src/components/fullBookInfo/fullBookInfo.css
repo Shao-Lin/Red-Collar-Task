@@ -1,0 +1,126 @@
+.book-page {
+  position: relative;
+  padding-top: 135px;
+  font-family: "Inter", sans-serif;
+  color: #3e2f1c;
+}
+
+.book-page__back {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.book-page__content {
+  display: flex;
+  gap: 8vw;
+  padding-inline: 8vw;
+  box-sizing: border-box;
+}
+
+.book-page__cover {
+  width: 315px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.book-page__info {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.book-page__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+.book-page__title {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.2;
+  flex: 1;
+}
+
+/* кнопка-сердце */
+.book-page__favorite-btn {
+  width: 65px;
+  height: 65px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.book-page__favorite-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.book-page__meta {
+  margin: 10px 0;
+  font-size: clamp(18px, 2vw, 20px);
+  line-height: 1.45;
+}
+
+.book-page__description-title {
+  font-weight: 600;
+}
+
+/* длинное описание */
+.book-page__description-text {
+  margin-top: 10px;
+  font-size: clamp(18px, 2vw, 20px);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .book-page__content {
+    gap: 6vw;
+    padding-inline: 6vw;
+  }
+  .book-page__favorite-btn {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .book-page__content {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding-inline: 40px;
+  }
+  .book-page__cover {
+    width: 250px;
+    height: auto;
+  }
+  .book-page__favorite-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .book-page__content {
+    padding-inline: 16px;
+    gap: 24px;
+  }
+
+  .book-page__back {
+    left: 16px;
+  }
+}

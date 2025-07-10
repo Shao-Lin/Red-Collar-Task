@@ -8,13 +8,18 @@ import useDebounce from "../hooks/useDebounce";
 import useFavorites from "../hooks/useFavorites";
 
 const MainPage = () => {
-  const [search, setSearch] = useState("Java");
-  const [filter, setFilter] = useState("");
+  const [search, setSearch] = useState(
+    () => localStorage.getItem("search") || "Clean code"
+  );
+
+  const [filter, setFilter] = useState(
+    () => localStorage.getItem("filter") || ""
+  );
 
   const debouncedSearch = useDebounce(search, 400);
 
   const { books, loadMore, hasMore } = useGoogleBooks(debouncedSearch, filter);
-  console.log(books);
+
   const { isFav, toggle } = useFavorites();
 
   return (

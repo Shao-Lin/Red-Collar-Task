@@ -1,10 +1,9 @@
-// src/api/googleBooks.js
 import axios from "axios";
 import NoCover from "../assets/NotCover.webp"
 
 const instance = axios.create({
   baseURL: "https://www.googleapis.com/books/v1/",
-  timeout: 10000
+
 });
 
 export async function fetchBooks(q, filter, start = 0, max = 18) {
@@ -14,6 +13,7 @@ export async function fetchBooks(q, filter, start = 0, max = 18) {
 
     const { data } = await instance.get("volumes", { params });
     console.log()
+
 
     return {
       total: data.totalItems || 0,
@@ -26,10 +26,10 @@ export async function fetchBooks(q, filter, start = 0, max = 18) {
           v.volumeInfo.imageLinks?.thumbnail ?? NoCover
       }))
     };
+
   } catch (err) {
-    // Здесь можно залогировать или показать toast:
     console.error("Google Books error:", err);
-    // Передаём ошибку дальше — пусть компонент-вызывающий решит, что делать.
+
     throw err;
   }
 }

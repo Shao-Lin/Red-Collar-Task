@@ -2,7 +2,8 @@ import React from "react";
 import { Form } from "formik";
 import SelectInput from "../UI/SelectInput";
 import "./sideBar.css";
-import CloseIcon from "../../assets/Close_round.svg";
+import CloseIcon from "../../assets/CloseMenu.svg";
+import PropTypes from "prop-types";
 
 const SideBar = ({ isOpen, onClose, setFilter }) => (
   <aside className={`side-bar ${isOpen ? "side-bar--open" : ""}`}>
@@ -19,10 +20,14 @@ const SideBar = ({ isOpen, onClose, setFilter }) => (
       <SelectInput
         name="filter"
         label=""
-        onChange={(val) => setFilter?.(val)} /* проброс наверх */
+        onChange={(val) => setFilter?.(val)}
       />
     </Form>
   </aside>
 );
-
+SideBar.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  setFilter: PropTypes.func,
+};
 export default SideBar;

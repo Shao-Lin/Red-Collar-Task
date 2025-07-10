@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
-import MenuIcon from "../../assets/MenuBtm.svg";
-import CloseIcon from "../../assets/Close_round.svg";
+import MenuIcon from "../../assets/MenuBtn.svg";
+import CloseIcon from "../../assets/CloseMenu.svg";
 import SearchInput from "../UI/SearchInput";
 import SideBar from "../sideBar/SideBar";
 
@@ -16,29 +16,31 @@ const MainHeader = ({ onSearchChange, onFilterChange, initialSearch }) => {
   const toggle = () => setIsOpen((p) => !p);
   const close = () => setIsOpen(false);
 
-  /* ----- Обработчики «на лету» ----- */
   const handleValuesChange = ({ search, filter }) => {
+    console.log("filter changed:", filter);
     onSearchChange(search);
+    localStorage.setItem("search", search);
     onFilterChange(filter);
+    localStorage.setItem("filter", filter);
   };
 
   return (
     <Formik
-      initialValues={{ search: initialSearch, filter: "" }}
+      initialValues={{
+        search: initialSearch,
+        filter: localStorage.getItem("filter"),
+      }}
       validationSchema={Yup.object({
         search: Yup.string().required("Введите запрос"),
       })}
-      /* submit не нужен, но должен быть */
       onSubmit={() => {}}
     >
       {({ values, setFieldValue }) => {
-        /* реагируем на каждое изменение формы */
         useEffect(() => handleValuesChange(values), [values]);
 
         return (
           <>
             <header className="main-header">
-              {/* кнопка меню / крестик */}
               <div className="main-header__left">
                 <button
                   className="main-header__menu-btn"
@@ -49,12 +51,10 @@ const MainHeader = ({ onSearchChange, onFilterChange, initialSearch }) => {
                 </button>
               </div>
 
-              {/* SEARCH */}
               <Form className="main-header__center">
                 <SearchInput />
               </Form>
 
-              {/* «Избранное» */}
               <div className="main-header__right">
                 <Link to="/favorites" className="main-header__favourites">
                   Избранное
@@ -62,7 +62,6 @@ const MainHeader = ({ onSearchChange, onFilterChange, initialSearch }) => {
               </div>
             </header>
 
-            {/* Сайдбар ➜ внутри Formik, поэтому SelectInput получает контекст */}
             <SideBar
               isOpen={isOpen}
               onClose={close}

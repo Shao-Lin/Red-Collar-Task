@@ -1,24 +1,21 @@
-/* контейнер всей страницы */
 .favorite-page {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* ---------- WRAP: держит кнопку и хедер ---------- */
 .favorite-wrap {
   position: relative;
   width: 100%;
-  margin-top: 51px; /* тот же отступ, что был */
+  margin-top: 51px;
   display: flex;
-  justify-content: center; /* центрирует header */
+  justify-content: center;
 }
 
-/* ---------- КНОПКА НАЗАД ---------- */
 .favorite-back-btn {
   position: absolute;
-  left: 20px; /* отступ слева 20 */
-  top: 50%; /* по высоте по центру блока header */
+  left: 20px;
+  top: 50%;
   transform: translateY(-50%);
   width: 70px;
   height: 70px;
@@ -33,10 +30,9 @@
   object-fit: contain;
 }
 
-/* ---------- HEADER "Избранное" ---------- */
 .favorite-header {
   background: #e3c8ae;
-  width: clamp(300px, 85%, 850px); /* 850 px при 1440, сжимается */
+  width: clamp(300px, 85%, 850px);
   border-radius: 10px;
   padding: 24px 0;
   text-align: center;
@@ -48,12 +44,10 @@
   color: #3e2f1c;
 }
 
-/* отступ списка */
 .favorite-page > .infinite-scroll-component {
   margin-top: 107px;
 }
 
-/* ---------- Планшеты ---------- */
 @media (max-width: 1024px) {
   .favorite-header__title {
     font-size: 32px;
@@ -65,7 +59,6 @@
   }
 }
 
-/* ---------- Мобильные ---------- */
 @media (max-width: 768px) {
   .favorite-header {
     width: 80%;

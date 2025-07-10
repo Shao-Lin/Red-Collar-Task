@@ -1,6 +1,7 @@
 import React from "react";
 import { useField } from "formik";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import PropTypes from "prop-types";
 
 const OPTIONS = [
   { v: "", label: "—" },
@@ -54,6 +55,12 @@ const sxSelect = {
       boxShadow: "0 0 0 3px rgba(193,110,79,.2)",
     },
   },
+};
+
+SelectInput.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default SelectInput;

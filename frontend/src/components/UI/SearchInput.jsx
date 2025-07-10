@@ -26,7 +26,6 @@ const SearchInput = () => {
   );
 };
 
-/* ---------- стили вынесены для читаемости ---------- */
 const sxSearch = {
   width: "clamp(300px, 59vw, 850px)",
   maxWidth: "850px",
